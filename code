@@ -1,0 +1,73 @@
+import random
+
+# Music selections
+music_recommendations = {
+    "happy": ["https://open.spotify.com/playlist/3xjDhqEwcROuSYJaR0WUaH?si=L-Cvk7IIQIO6eiKzSwYqag"],
+    "sad": ["https://open.spotify.com/playlist/7oJ5FMGsDJGlMX4sCGAclt?si=aec68a27a97b40ff"],
+    "excited": ["https://open.spotify.com/playlist/1ByAXvN7RWG55dpyBVuOMD?si=e3866531ad224628"],
+    "relaxed": ["https://open.spotify.com/playlist/64qGZQtqLlEaT6ie7Yjvz2?si=3e411fbafb284e8b"],
+    "angry": ["https://open.spotify.com/playlist/6Z4IoeiM9xHBo2nLQih9nR?si=0c725a2e0678414e"],
+    "romantic": ["https://open.spotify.com/playlist/5eyRgkD8kTSHJcjlAC1N4b?si=6986ed5351524816"],
+    "raged": ["https://open.spotify.com/playlist/0lmob41M827igiFjVezlwq?si=3a8a920ce6f54b70"],
+    "energetic": ["https://open.spotify.com/playlist/6eVKOjWDZjH4AbEvmqpn4d?si=e442b64f581b4198"],
+    "uplifting": ["https://open.spotify.com/playlist/1U4Is4zLxNKh4dtpBeQGYU?si=a8c292afc2a34c12"]
+}
+
+# Phone screen display 
+def display_phone_screen(message):
+    # Calculate message width to dynamically adjust the screen width
+    message_width = len(message)
+    
+    # Add some padding for the borders
+    screen_width = message_width + 2  # Adding 2 for left and right borders
+
+    # Print top border
+    print("╔" + "═" * screen_width + "╗")
+    
+    # Print empty lines above and below the message
+    for _ in range(2):  # 2 lines of padding
+        print("║" + " " * screen_width + "║")
+    
+    # Print the message, centered inside the screen
+    print(f"║{message.center(screen_width)}║")
+    
+    # Print empty lines below the message
+    for _ in range(2):  # 2 lines of padding
+        print("║" + " " * screen_width + "║")
+    
+    # Print bottom border
+    print("╚" + "═" * screen_width + "╝")
+
+# Welcome screen
+display_phone_screen(" Welcome to the Moodify Generator! Tell me your mood, then I will select your playlist.")
+
+while True:
+    # Get user input for mood
+    mood = input("""
+Choose your mood:
+happy 😄
+sad 😢
+excited 🤩
+relaxed 😎
+angry 😠
+romantic 😍
+raged 😡
+energetic 💃
+uplifting 🙌
+: """).lower()
+
+    # Check if the mood exists in the music recommendations
+    if mood in music_recommendations:
+        playlist = random.choice(music_recommendations[mood])
+        # Display the message with playlist link
+        display_phone_screen(f"Your Mood: {mood.capitalize()} Here's your playlist: {playlist}")
+    else:
+        # Handle unrecognized mood
+        display_phone_screen("Mood not recognized. Try again.")
+
+    # Ask if the user wants another recommendation
+    choice = input("Would you like another recommendation? (yes/no): ").lower()
+    if choice != 'yes':
+        # Show exit message and break the loop
+        display_phone_screen("Thanks for using Moodify!")
+        break
